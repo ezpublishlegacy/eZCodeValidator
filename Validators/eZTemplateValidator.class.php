@@ -4,7 +4,7 @@
 class eZTemplateValidator extends Validator {
     protected $defaultOptions = array(
         'ezpublish_root' => '/var/www/ezpublish/'
-        );
+    );
 
     public function check($filePath) {
         $projectBase = $this->options['ezpublish_root'];
@@ -22,9 +22,9 @@ class eZTemplateValidator extends Validator {
         require_once('lib/eztemplate/classes/eztemplate.php');
 
         $script = eZScript::instance( array( 'description' => ( "" ),
-                                             'use-session' => false,
-                                             'use-modules' => true,
-                                             'use-extensions' => true ) );
+                                            'use-session' => false,
+                                            'use-modules' => true,
+                                            'use-extensions' => true ) );
 
         $script->startup();
         $script->initialize();
@@ -44,7 +44,7 @@ class eZTemplateValidator extends Validator {
         $script->shutdown();
 
         $validationOutput = ob_get_contents();
-        ob_end_clean();        
+        ob_end_clean();
 
         if( !$validationResult ) {
             $validationOutputArray = explode(PHP_EOL, $validationOutput);
@@ -52,7 +52,7 @@ class eZTemplateValidator extends Validator {
             //filter empty lines and stats from output
             $validationOutputArray = array_filter($validationOutputArray, function($element){
 
-                return strncmp($element, "Total runtime:", strlen("Total runtime:")) && 
+                return strncmp($element, "Total runtime:", strlen("Total runtime:")) &&
                         strncmp($element, "Peak memory usage:", strlen("Peak memory usage:")) &&
                         strlen($element) > 0;
             });

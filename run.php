@@ -21,7 +21,7 @@ foreach($config['log_printers'] as $logPrinterConfig) {
 }
 
 //building list of files to validate
-$dir = '/var/www/nsc/git/extension/eff/';
+$dir = '.';
 $files = allFilesFromDir($dir);
 
 //
