@@ -1,0 +1,116 @@
+{
+    "log_printers": [
+        {
+            "name": "CLILogPrinter",
+            "message_types": [
+                "success",
+                "failure"
+            ],
+            "options": {
+                "show_caller": false,
+                "colors": true
+            }
+        },
+        {
+            "name": "FileLogPrinter",
+            "message_types": [
+                "failure",
+                "error",
+                "warning",
+                "log"
+            ],
+            "options": {
+                "show_caller": false,
+                "log_dir": "/tmp/",
+                "override": true,
+                "file_prefix": "ezcv_errors"
+            }
+        }
+    ],
+    "validators": [
+        {
+            "name": "JSValidator",
+            "extensions": {
+                "whitelist":[
+                    "js"
+                ],
+                "blacklist":[]
+            },
+            "options": {
+                "jshint_path": "jshint"
+            }
+        },
+        {
+            "name": "PHPValidator",
+            "extensions": {
+                "whitelist":[
+                    "php"
+                ],
+                "blacklist":[
+                    "ini.append.php"
+                ]
+            },
+            "options": {
+                "php_path": "php"
+            }
+        },
+        {
+            "name": "eZTemplateValidator",
+            "extensions": {
+                "whitelist":[
+                    "tpl"
+                ],
+                "blacklist":[]
+            },
+            "options": {
+                "ezpublish_root": "/var/www/nsc/"
+            }
+        },
+        {
+            "name": "INIValidator",
+            "extensions": {
+                "whitelist":[
+                    "ini",
+                    "ini.append.php"
+                ],
+                "blacklist":[]
+            },
+            "options": {
+            }
+        },
+        {
+            "name": "IndentationValidator",
+            "extensions": {
+                "whitelist": [
+                    "js",
+                    "php",
+                    "tpl"
+                ],
+                "blacklist": [
+                    "ini.append.php"
+                ]
+            },
+            "options": {
+                "validate": true,
+                "fix": false,
+                "spaces_per_tab": 4
+            }
+        },
+        {
+            "name": "TrailingSpacesValidator",
+            "extensions": {
+                "whitelist": [
+                    "js",
+                    "php",
+                    "tpl"
+                ],
+                "blacklist": [
+                ]
+            },
+            "options": {
+                "validate": true,
+                "fix": false
+            }
+        }
+    ]
+}
