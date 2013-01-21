@@ -34,16 +34,19 @@ class TrailingSpacesValidator extends Validator {
     }
 
     private function validate($filePath) {
-        $fileContents = file_get_contents($filePath);
+        $valid = true;
+        $fileContents = explode(PHP_EOL, file_get_contents($filePath));
+        $lineNumber = 1;
 
-        $trailingSpaces = preg_match_all("@[ 	]+$@m", $fileContents, $matches);
+        foreach($fileContents as $lineContents) {
+            if(preg_match("@[ 	]+$@", $lineContents)) {
+                $this->log->error("line $lineNumber - trailing spaces/tabs found");
+                $valid = false;
+            }
 
-        if($trailingSpaces) {
-            $this->log->error("INVALID (trailing spaces/tabs found)");
-            return false;
+            $lineNumber++;
         }
 
-        $this->log->debug("VALID");
-        return true;
+        return $valid;
     }
 }

@@ -3,8 +3,9 @@
         {
             "name": "CLILogPrinter",
             "message_types": [
-                "success",
-                "failure"
+                "error",
+                "failure",
+                "success"
             ],
             "options": {
                 "show_caller": false,
@@ -15,6 +16,7 @@
             "name": "FileLogPrinter",
             "message_types": [
                 "failure",
+                "success",
                 "error",
                 "warning",
                 "log"
@@ -102,7 +104,8 @@
                 "whitelist": [
                     "js",
                     "php",
-                    "tpl"
+                    "tpl",
+                    "css"
                 ],
                 "blacklist": [
                 ]
@@ -110,6 +113,32 @@
             "options": {
                 "validate": true,
                 "fix": false
+            }
+        },
+        {
+            "name": "CSSValidator",
+            "extensions": {
+                "whitelist": [
+                    "css"
+                ],
+                "blacklist": [
+                ]
+            },
+            "options": {
+                "csslint_path": "csslint",
+                "errors": [
+                    "duplicated-properties",
+                    "empty-rules",
+                    "errors",
+                    "ventor-prefix",
+                    "compatibile-vendor-prefixes"
+                ],
+                "warnings": [
+                    "shorthand",
+                    "overqualified-elements"
+                ],
+                "ignore": [
+                ]
             }
         }
     ]

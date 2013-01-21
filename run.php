@@ -3,6 +3,7 @@
 require('autoloader.php');
 require('Core/Helpers/helper_functions.php');
 
+//reading console arguments
 $cliArguments = new CLIArguments($argv);
 $configPath = isset($cliArguments['config']) ? $cliArguments['config'] : 'config.default.json';
 
@@ -24,6 +25,7 @@ foreach($config['log_printers'] as $logPrinterConfig) {
 }
 
 //building list of files to validate
+$log->debug('BUILDING LIST OF FILES');
 $files = array();
 
 if(isset($cliArguments['files'])) {
@@ -38,7 +40,7 @@ if(isset($cliArguments['dirs'])) {
     }
 }
 
-//
+//validating
 $log->debug('RUNNING VALIDATORS');
 
 $failures = 0;
@@ -56,9 +58,9 @@ foreach($files as $file) {
             $validator->configure($validatorConfig['options']);
 
             if($validator->check($file)) {
-                $log->success($file . ' passed `' . $validatorName . '` test.');
+                $log->success($file . ' passed `' . $validatorName . '` validation.');
             } else {
-                $log->failure($file . ' failed `' . $validatorName . '` test.');
+                $log->failure($file . ' failed `' . $validatorName . '` validation.');
                 $failures++;
             }
         }

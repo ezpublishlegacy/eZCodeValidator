@@ -18,7 +18,13 @@ class JSValidator extends Validator {
                 $message = trim($message);
 
                 if(!empty($message)) {
-                    $this->log->error($message);
+                    preg_match('/.+: (?P<position>line [0-9]+, col [0-9]+, )?(?P<text>.+)/', $message, $matches);
+
+                    $position = isset($matches['position']) ? $matches['position'] : '';
+                    $text = isset($matches['text']) ? $matches['text'] : $message;
+                    $output = $position . $text;
+
+                    $this->log->error($output);
                     $valid = false;
                 }
             }

@@ -38,40 +38,36 @@ class IndentationValidator extends Validator {
     }
 
     private function validate($filePath) {
-        $fileContents = file_get_contents($filePath);
+        $valid = true;
+        $fileContents = explode(PHP_EOL, file_get_contents($filePath));
         $spacesPerTab = $this->options['spaces_per_tab'];
 
-        $lines = preg_match_all("@^@m", $fileContents, $matches);
-        $noIndentation = preg_match_all("@^[^ 	]@m", $fileContents, $matches);
-        $tabs = preg_match_all("@^	+([^ ]|$)@m", $fileContents, $matches);
-        $spaces = preg_match_all("@^ +([^	]|$)@m", $fileContents, $matches);
+        $lineNumber = 1;
 
-        if( $noIndentation == $lines ) {
-            $this->log->debug("VALID (no indentation)");
-            return true;
-        }
+        foreach($fileContents as $lineContents) {
+            $noIndentation = preg_match("@^[^ 	]@", $lineContents);
+            $tabs = preg_match("@^	+([^ ]|$)@", $lineContents);
+            $spaces = preg_match("@^ +([^	]|$)@", $lineContents, $matches);
 
-        if( $tabs + $noIndentation == $lines ) {
-            $this->log->error("INVALID (uses tabs)");
-            return false;
-        }
+            if($tabs) {
+                $this->log->error("line $lineNumber - tabs used for indentation");
+                $valid = false;
+            } else if($spaces) {
+                //line that uses only spaces - lets check if number of spaces is OK in every line
+                $spacesCount = substr_count($matches[0], ' ');
 
-        if ( $spaces + $noIndentation == $lines ) {
-            //file that uses only spaces - lets check if number of spaces is OK in every line
-            foreach($matches[0] as $match) {
-                $spacesCount = substr_count($match, ' ');
-
-                if( $spacesCount%$spacesPerTab != 0 ) {
-                    $this->log->error("INVALID (wrong number of spaces per tab, should be: $spacesPerTab)");
-                    return false;
+                if($spacesCount%$spacesPerTab != 0) {
+                    $this->log->error("line $lineNumber - wrong number of spaces per tab, should be: $spacesPerTab");
+                    $valid = false;
                 }
+            } else if ($noIndentation === false) {
+                $this->log->error("line $lineNumber - mixed spaces and tabs used for indentation");
+                $valid = false;
             }
 
-            $this->log->debug("VALID");
-            return true;
+            $lineNumber++;
         }
 
-        $this->log->error("INVALID (mixed spaces and tabs)");
-        return false;
+        return $valid;
     }
 }
