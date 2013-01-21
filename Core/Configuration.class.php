@@ -26,7 +26,7 @@ class Configuration implements ArrayAccess, Iterator {
     }
 
     public function offsetSet($offset, $value) {
-        //
+        //read only
     }
 
     public function offsetExists($offset) {
@@ -34,7 +34,7 @@ class Configuration implements ArrayAccess, Iterator {
     }
 
     public function offsetUnset($offset) {
-        //
+        //read only
     }
 
     public function offsetGet($offset) {

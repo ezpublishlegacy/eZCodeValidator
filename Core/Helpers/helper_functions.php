@@ -1,7 +1,11 @@
 <?php
 
-function endsWith($subject, $ending) {
-    return substr($subject, -strlen($ending)) === $ending;
+function startsWith($subject, $prefix) {
+    return !strncmp($subject, $prefix, strlen($prefix));
+}
+
+function endsWith($subject, $postfix) {
+    return substr($subject, -strlen($postfix)) === $postfix;
 }
 
 function endsWithAnyOf($subject, $endings) {
@@ -14,11 +18,12 @@ function endsWithAnyOf($subject, $endings) {
     return false;
 }
 
-function allFilesFromDir($dir) {
+function allFilesFromDir($dir, $recursive=true) {
     $files = array();
+    $iterator = $recursive ? new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir)) : new DirectoryIterator($dir);
 
-    foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir)) as $f) {
-        $files[] = $f;
+    foreach ($iterator as $f) {
+        $files[] = (string)$f;
     }
 
     return $files;

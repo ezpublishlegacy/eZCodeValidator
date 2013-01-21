@@ -3,9 +3,12 @@
 require('autoloader.php');
 require('Core/Helpers/helper_functions.php');
 
+$cliArguments = new CLIArguments($argv);
+$configPath = isset($cliArguments['config']) ? $cliArguments['config'] : 'config.default.json';
+
 //reading configuration
 $config = new Configuration();
-$config->load('config.json');
+$config->load($configPath);
 
 //setting up Log and LogPrinters
 $log = new Log();
@@ -21,8 +24,19 @@ foreach($config['log_printers'] as $logPrinterConfig) {
 }
 
 //building list of files to validate
-$dir = '.';
-$files = allFilesFromDir($dir);
+$files = array();
+
+if(isset($cliArguments['files'])) {
+    $files = $cliArguments['files'];
+}
+
+if(isset($cliArguments['dirs'])) {
+    $recursive = isset($cliArguments['recursive']);
+
+    foreach($cliArguments['dirs'] as $dir) {
+        $files = array_merge($files, allFilesFromDir($dir, $recursive));
+    }
+}
 
 //
 $log->debug('RUNNING VALIDATORS');
