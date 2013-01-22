@@ -1,6 +1,8 @@
 <?php
 
-//based on csslint
+/**
+ * CSS validation based on csslint (https://github.com/stubbornella/csslint).
+ */
 class CSSValidator extends Validator {
     protected $defaultOptions = array(
         'csslint_path' => 'csslint',

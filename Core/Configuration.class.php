@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Reads JSON configuration file and allows to access it using array operator [] and iterate over it.
+ */
 class Configuration implements ArrayAccess, Iterator {
     private $jsonObj;
     private $position = 0;
@@ -9,6 +12,10 @@ class Configuration implements ArrayAccess, Iterator {
         $this->position = 0;
     }
 
+    /**
+     * Loads JSON data from file.
+     * @param  string $configFile path to config file
+     */
     public function load($configFile) {
         if(!file_exists($configFile) || !is_readable($configFile)) {
             throw new Exception('Configuration file is not readable.');
@@ -21,9 +28,17 @@ class Configuration implements ArrayAccess, Iterator {
         }
     }
 
+    /**
+     * Returns raw data (Object/Array/String/Number/Boolean) instead of data packed in Configuration class.
+     */
     public function raw() {
         return $this->jsonObj;
     }
+
+
+    /**
+     * ArrayAccess methods
+     */
 
     public function offsetSet($offset, $value) {
         //read only
@@ -54,10 +69,18 @@ class Configuration implements ArrayAccess, Iterator {
         return new Configuration($currentNode);
     }
 
+    /**
+     * Iterator methods
+     */
+
     public function rewind() {
         $this->position = 0;
     }
 
+    /**
+     * Returns part of configuration wrapped in Configuration object.
+     * @return Configuration requested data wrapped in Configuration
+     */
     public function current() {
         return new Configuration($this->jsonObj[$this->position]);
     }

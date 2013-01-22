@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Manages multipe log printers. Hooks printers to the log.
+ */
 class LogPrinterManager {
     private $log = null;
     private $printers = array();
@@ -9,6 +12,11 @@ class LogPrinterManager {
         $this->printers = array();
     }
 
+    /**
+     * Makes sure that new messages from a Log go to the printer.
+     * @param LogPrinter $printer
+     * @param array      $messageTypes list of messages that given printer accepts
+     */
     public function addPrinter(LogPrinter $printer, $messageTypes = array()) {
         $this->printers[] = $printer;
 

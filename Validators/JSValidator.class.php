@@ -1,6 +1,8 @@
 <?php
 
-//based on jshint
+/**
+ * JavaScript validation based on jshint (http://www.jshint.com/).
+ */
 class JSValidator extends Validator {
     protected $defaultOptions = array(
         'jshint_path' => 'jshint'

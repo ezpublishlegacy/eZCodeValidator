@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Outputs LogMessages to a file.
+ */
 class FileLogPrinter extends  LogPrinter {
     protected $defaultOptions = array(
             'log_dir' => '/tmp/',
@@ -15,6 +18,9 @@ class FileLogPrinter extends  LogPrinter {
         }
     }
 
+    /**
+     * Prints single LogMessage to a file.
+     */
     public function printMessage(LogMessage $message) {
         $handle = $this->getLogFileHandle();
 
@@ -27,6 +33,10 @@ class FileLogPrinter extends  LogPrinter {
         fwrite($handle, $line . PHP_EOL);
     }
 
+    /**
+     * Creates a new log file.
+     * @return file handle
+     */
     private function getLogFileHandle() {
         if(!$this->logFileHandle) {
             $logFilePath = $this->options['log_dir'] . $this->getLogFileName();
@@ -39,9 +49,14 @@ class FileLogPrinter extends  LogPrinter {
         return $this->logFileHandle;
     }
 
+    /**
+     * Generates a log file name.
+     * @return string file name
+     */
     private function getLogFileName() {
         $fileName = $this->options['file_prefix'];
 
+        //if 'override' is not set, create a unique file name
         if(!$this->options['override']) {
             $fileName .= '_' . date('d-m-y_h-i-s');
         }

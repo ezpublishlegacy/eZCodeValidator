@@ -5,7 +5,7 @@ class Log implements IteratorAggregate {
     private $messages = array();
     private $listeners = array();
 
-    //insetead of 4 functions (error, warning, log, debug)
+    //insetead of multipe functions (error, warning, log, debug etc.)
     public function __call($name, $arguments) {
         if( in_array($name, $this->allowedTypes) ) {
             $this->addMessage($name, implode('; ', $arguments));

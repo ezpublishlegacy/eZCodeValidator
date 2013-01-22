@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Custom indentation validator. Checks if apropriate number of spaces (and not tabs) is used for indentation.
+ * Does not check if indentation is properly used, it just checks if proper indentation is used.
+ */
 class IndentationValidator extends Validator {
     protected $defaultOptions = array(
         'validate' => true,
@@ -57,8 +61,7 @@ class IndentationValidator extends Validator {
                 $spacesCount = substr_count($matches[0], ' ');
 
                 if($spacesCount%$spacesPerTab != 0) {
-                    $this->log->error("line $lineNumber - wrong number of spaces per tab, should be: $spacesPerTab");
-                    $valid = false;
+                    $this->log->warning("line $lineNumber - wrong number of spaces per tab, should be: $spacesPerTab");
                 }
             } else if ($noIndentation === false) {
                 $this->log->error("line $lineNumber - mixed spaces and tabs used for indentation");

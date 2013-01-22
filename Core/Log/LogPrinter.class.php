@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Log printer template.
+ */
 abstract class LogPrinter {
     use Configurable;
 

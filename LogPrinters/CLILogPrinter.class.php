@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Command Line (CLI) log printer outputs, optionaly colorfull, messages from Log to console.
+ */
 class CLILogPrinter extends  LogPrinter {
     protected $defaultOptions = array(
             'colors' => true,

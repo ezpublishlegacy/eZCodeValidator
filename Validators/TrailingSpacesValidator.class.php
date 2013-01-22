@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Custom trailing spaces/tabs validator (and remover).
+ */
 class TrailingSpacesValidator extends Validator {
     protected $defaultOptions = array(
         'validate' => true,

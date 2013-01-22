@@ -1,6 +1,8 @@
 <?php
 
-//based on `php -l` (lint)
+/**
+ * PHP validation with PHP build in linter (php -l).
+ */
 class PHPValidator extends Validator {
     protected $defaultOptions = array(
         'php_path' => 'php'

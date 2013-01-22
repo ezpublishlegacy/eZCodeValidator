@@ -1,6 +1,8 @@
 <?php
 
-//a lot of regular expressions
+/**
+ * Custom eZPublish INI files validator.
+ */
 class INIValidator extends Validator {
 
     public function check($filePath) {

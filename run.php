@@ -5,9 +5,11 @@ require('Core/Helpers/helper_functions.php');
 
 //reading console arguments
 $cliArguments = new CLIArguments($argv);
-$configPath = isset($cliArguments['config']) ? $cliArguments['config'] : 'config.default.json';
 
 //reading configuration
+$defaultConfigLocation = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.default.json';
+$configPath = isset($cliArguments['config']) ? $cliArguments['config'] : $defaultConfigLocation;
+
 $config = new Configuration();
 $config->load($configPath);
 

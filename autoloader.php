@@ -10,7 +10,7 @@ function autoloader($class) {
         );
 
     foreach($validFolders as $folder) {
-        $file = $folder . '/' . $class . '.class.php';
+        $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . $class . '.class.php';
 
         if(file_exists($file) && is_readable($file)) {
             include($file);

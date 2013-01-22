@@ -4,8 +4,7 @@
             "name": "CLILogPrinter",
             "message_types": [
                 "error",
-                "failure",
-                "success"
+                "failure"
             ],
             "options": {
                 "show_caller": false,

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Validator template
+ */
 abstract class Validator {
     use Configurable;
 
@@ -9,5 +12,10 @@ abstract class Validator {
         $this->log = $log;
     }
 
+    /**
+     * Runs file validation.
+     * @param  string $filePath file to be validated
+     * @return boolean           validation result (success or failure)
+     */
     abstract public function check($filePath);
 }

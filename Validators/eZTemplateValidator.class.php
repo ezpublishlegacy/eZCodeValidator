@@ -1,6 +1,9 @@
 <?php
 
-//based on eZPublish template validator
+/**
+ * eZTemplate validator based on build-in eZPublish template validator.
+ * This validator is quite slow as it has to run eZPublish to run the template parser.
+ */
 class eZTemplateValidator extends Validator {
     protected $defaultOptions = array(
         'ezpublish_root' => '/var/www/ezpublish/'

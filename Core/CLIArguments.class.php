@@ -1,8 +1,15 @@
 <?php
 
+/**
+ * Reads and groups console arguments enabling array-like access with array operator [].
+ */
 class CLIArguments implements ArrayAccess {
     private $options = array();
 
+    /**
+     * Reads and group console arguments
+     * @param array $arguments array of strings
+     */
     public function __construct($arguments) {
         $currentParam = null;
 
@@ -15,6 +22,10 @@ class CLIArguments implements ArrayAccess {
             }
         }
     }
+
+    /**
+     * ArrayAccess methods
+     */
 
     public function offsetSet($offset, $value) {
         //read only
