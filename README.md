@@ -1,6 +1,6 @@
 eZCodeValidator
 ===============
-Code validator is a configurable and extesable framework for running validators over project code. Multiple validators (for PHP, JavaScript, eZPublish templates etc.) are included in the project.
+Code validator is a configurable and extensible framework for running validators over project code. Multiple validators (for PHP, JavaScript, eZPublish templates etc.) are included in the project.
 
 Instalation
 ---------------
@@ -12,7 +12,7 @@ This project needs PHP 5.4+ to run. Besides that, some validators require additi
 
 Configuration
 ---------------
-Project may be configured using JSON file (default configuration is included in project - `config.default.json`). This way, log printers and validators may be set up.
+Project may be configured using JSON file (default configuration is included - `config.default.json`). This way, log printers and validators may be set up.
 
 Log printers write messages from validation to console/files etc. Types of messages (error, warning, debug etc.) that should be printed can be specified for each printer. Besides that, each log printer takes custom configuraiton.
 
