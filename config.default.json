@@ -72,7 +72,8 @@
             "extensions": {
                 "whitelist":[
                     "ini",
-                    "ini.append.php"
+                    "ini.append.php",
+                    "ini.append"
                 ],
                 "blacklist":[]
             },
@@ -129,7 +130,7 @@
                     "duplicated-properties",
                     "empty-rules",
                     "errors",
-                    "ventor-prefix",
+                    "vendor-prefix",
                     "compatibile-vendor-prefixes"
                 ],
                 "warnings": [

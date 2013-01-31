@@ -8,7 +8,7 @@ $cliArguments = new CLIArguments($argv);
 
 //reading configuration
 $defaultConfigLocation = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.default.json';
-$configPath = isset($cliArguments['config']) ? $cliArguments['config'] : $defaultConfigLocation;
+$configPath = isset($cliArguments['config']) ? $cliArguments['config'][0] : $defaultConfigLocation;
 
 $config = new Configuration();
 $config->load($configPath);
