@@ -1,17 +1,43 @@
 #!/bin/bash
 
 # Run script from the eZ Publish root folder
-# Parameter 1 is optional path to git folder
-
+# Parameters:
+# --git specify optional path to git folder (default is './git/')
+# --config specify optional configuration file (default is 'config.default.json')
 
 #- find the path to eZCodeValidator
 FULL_NAME=`which "$0"`
 VALIDATOR_PATH=`dirname "$FULL_NAME"`
 
-#- default git folder is './git/'
-GIT_FOLDER=git
-if [[ ! $1 = '' ]]; then
-	GIT_FOLDER=$1
+GIT_FOLDER=./git
+CONFIG_FILE=$VALIDATOR_PATH/config.default.json
+
+#- parse input parameters
+while getopts "g:c:" OPTION
+do
+     case $OPTION in
+         g)
+             GIT_FOLDER=$OPTARG
+             ;;
+         c)
+             CONFIG_FILE=$OPTARG
+             ;;
+     esac
+done
+
+if [ ! -d $GIT_FOLDER ]; then
+	echo "Git repository folder '$GIT_FOLDER' not found."
+	exit 1
+fi
+
+if [ ! -f $CONFIG_FILE ]; then
+	echo "eZCodeValidator config file '$CONFIG_FILE' not found."
+	exit 1
+fi
+
+if [ ! -d 'kernel' ]; then
+	echo "Not in eZ Publish root directory."
+	exit 1
 fi
 
 #- get list of files modified or about to be commited
@@ -20,4 +46,4 @@ fi
 FILES=`cd $GIT_FOLDER && git status -s --porcelain | grep -G "^[A-Z] " | cut -c 4- | replace "
 " " "`
 
-php $VALIDATOR_PATH/run.php --files $FILES
+php $VALIDATOR_PATH/run.php --config $CONFIG_FILE  --files $FILES
