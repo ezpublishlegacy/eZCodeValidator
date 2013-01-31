@@ -28,4 +28,12 @@ Console parameters
 
 ezcv.sh
 ---------------
-This bash script can be executed in any directory with git repository set up. It reads list of files to be commited and runs validators on them (using `php run.php --files`).
+This script must be run from eZ Publish root folder. It takes two parameters:
+- `-g` git repository folder (if not set, './git/' will be used)
+- `-c` path to configuration (if not set, default configuration will be used)
+
+It will use `run.php` to validate or format any modified files in the git repository.
+
+Recommended use is to add one or more config files to the project, and then add a shell alias for easy access:
+
+`alias projectvalidate='/www/eZCodeValidator/ezcv.sh -c extension/project/doc/config.validate.json`
