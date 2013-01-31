@@ -43,7 +43,7 @@ fi
 #- get list of files modified or about to be commited
 #- filter list of files to be commited
 #- replace line ends with spaces
-FILES=`cd $GIT_FOLDER && git status -s --porcelain | grep -G "^[A-Z] " | cut -c 4- | replace "
+FILES=`cd $GIT_FOLDER && git status -s --porcelain | cut -c 4- | replace "
 " " "`
 
 php $VALIDATOR_PATH/run.php --config $CONFIG_FILE  --files $FILES
