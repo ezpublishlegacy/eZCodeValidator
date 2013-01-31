@@ -14,9 +14,12 @@ Configuration
 ---------------
 Project may be configured using JSON file (default configuration is included - `config.default.json`). This way, log printers and validators may be set up.
 
-Log printers write messages from validation to console/files etc. Types of messages (error, warning, debug etc.) that should be printed can be specified for each printer. Besides that, each log printer takes custom configuration.
+**Log printers** write messages from validation to console/files etc. Types of messages (error, warning, debug etc.) that should be printed can be specified for each printer. Besides that, each log printer takes custom configuration.
+Default configuration file uses two printers:
+- `CLILogPrinter` for displaing errors and failures on the console,
+- and `FileLogPrinter` for writing more detailed log to the `/tmp/ezcv_errors.log` file.
 
-Validators check the code and push messages to log printers. For each validator blacklist and whitelist of file extensions should be provided. This allows to target specific files with specific validators (e.g. JavaScript files, ".js", should be validated with JSValidator). Besides that, each validator takes custom configuration.
+**Validators** check the code and push messages to log printers. For each validator blacklist and whitelist of file extensions should be provided. This allows to target specific files with specific validators (e.g. JavaScript files, ".js", should be validated with JSValidator). Besides that, each validator takes custom configuration.
 
 Console parameters
 --------------
