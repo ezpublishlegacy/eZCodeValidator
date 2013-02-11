@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Trait that allows object to be configured by merging custom options with default options.
+ * Class that allows object to be configured by merging custom options with default options.
  */
-trait Configurable {
+class Configurable {
     /**
      * Default configuration array
      * @var array

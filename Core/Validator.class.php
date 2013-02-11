@@ -3,9 +3,7 @@
 /**
  * Validator template
  */
-abstract class Validator {
-    use Configurable;
-
+abstract class Validator extends Configurable {
     protected $log;
 
     public function __construct(Log $log) {
