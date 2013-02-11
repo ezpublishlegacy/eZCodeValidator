@@ -14,8 +14,8 @@ $config = new Configuration();
 $config->load($configPath);
 
 //setting up Log and LogPrinters
-$log = new Log();
-$logPrinterManager = new LogPrinterManager($log);
+$logPrinterManager = new LogPrinterManager();
+$log = new Log($logPrinterManager);
 
 foreach($config['log_printers'] as $logPrinterConfig) {
     $printerClass = $logPrinterConfig['name']->raw();

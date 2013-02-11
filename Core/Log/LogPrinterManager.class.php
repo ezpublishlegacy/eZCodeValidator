@@ -4,28 +4,37 @@
  * Manages multipe log printers. Hooks printers to the log.
  */
 class LogPrinterManager {
-    private $log = null;
-    private $printers = array();
+    private $configuration = null;
 
-    public function __construct(Log $log) {
-        $this->log = $log;
-        $this->printers = array();
+    public function __construct() {
+        $this->configuration = array();
     }
 
     /**
-     * Makes sure that new messages from a Log go to the printer.
+     * Collects information about printer.
      * @param LogPrinter $printer
      * @param array      $messageTypes list of messages that given printer accepts
      */
     public function addPrinter(LogPrinter $printer, $messageTypes = array()) {
-        $this->printers[] = $printer;
+        $this->configuration[] = array(
+            'printer' => $printer,
+            'messageTypes' => $messageTypes
+            );
+    }
 
-        //calls logPrinter whenever new message is registered by Log
-        $this->log->onMessage(function($message) use($printer, $messageTypes){
+    /**
+     * Calls logPrinter whenever new message is registered by Log.
+     * @param  LogMessage $message message to be printed by printers
+     */
+    public function newMessage($message) {
+        foreach($this->configuration as $config) {
+            $printer = $config['printer'];
+            $messageTypes = $config['messageTypes'];
+
             if( in_array($message->type, $messageTypes) ) {
                 $printer->printMessage($message);
             }
-        });
+        }
     }
 
 }

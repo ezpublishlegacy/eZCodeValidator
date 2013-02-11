@@ -3,7 +3,11 @@
 class Log implements IteratorAggregate {
     private $allowedTypes = array('error', 'warning', 'log', 'debug', 'success', 'failure');
     private $messages = array();
-    private $listeners = array();
+    private $logPrinterManager = null;
+
+    public function __construct(LogPrinterManager $logPrinterManager) {
+        $this->logPrinterManager = $logPrinterManager;
+    }
 
     //insetead of multipe functions (error, warning, log, debug etc.)
     public function __call($name, $arguments) {
@@ -15,24 +19,15 @@ class Log implements IteratorAggregate {
     }
 
     private function addMessage($type, $message) {
-        $this->messages[] = new LogMessage(array(
+        $message = new LogMessage(array(
             'type' => $type,
             'caller' => $this->getCaller(),
             'message' => $message,
             'date' => time()
         ));
 
-        $this->informListeners();
-    }
-
-    public function onMessage($listener) {
-        $this->listeners[] = $listener;
-    }
-
-    private function informListeners() {
-        foreach($this->listeners as $listener) {
-            $listener(end($this->messages));
-        }
+        $this->messages[] = $message;
+        $this->logPrinterManager->newMessage($message);
     }
 
     private function getCaller() {
