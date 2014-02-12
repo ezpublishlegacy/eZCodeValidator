@@ -4,7 +4,7 @@ Code validator is a configurable and extensible framework for running validators
 
 Installation
 ---------------
-This project needs PHP 5.4+ to run. Besides that, some validators require additional tools:
+This project needs PHP 5.3+ to run. Besides that, some validators require additional tools:
 
 - JSValidator requires jshint - http://www.jshint.com/ (may be installed with npm)
 - CSSValidator requires csshint - https://github.com/stubbornella/csslint (may be installed with npm)
@@ -32,7 +32,7 @@ Console parameters
 ezcv.sh
 ---------------
 This script must be run from eZ Publish root folder. It takes two parameters:
-- `-g` git repository folder (if not set, './git/' will be used)
+- `-g` git repository folder (if not set, 'git/' will be used)
 - `-c` path to configuration (if not set, default configuration will be used)
 
 It will use `run.php` to validate or format any modified files in the git repository.
