@@ -45,5 +45,5 @@ fi
 #- replace line ends with spaces
 FILES=`cd $GIT_FOLDER && git status -s --porcelain | cut -c 4- | sed "s/.*/$GIT_FOLDER\/&/" | replace "
 " " "`
-echo $FILES
+
 php $VALIDATOR_PATH/run.php --config $CONFIG_FILE  --files $FILES
